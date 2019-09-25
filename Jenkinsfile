@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh './gradlew build'
+				stash(name: 'build-artifact')
             }
         }
         stage('Test') {
