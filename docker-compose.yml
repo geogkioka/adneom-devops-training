@@ -1,12 +1,12 @@
 version: '3'
 services:
   backend:
-    image: ffurlanetto/asgard-rest
+    image: ggkioka/asgard-rest
     deploy:
       replicas: 2
     restart: always
   frontend:
-    image: ffurlanetto/asgard-web
+    image: ggkioka/asgard-web
     restart: always
     links:
       - backend
