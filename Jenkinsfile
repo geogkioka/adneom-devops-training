@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Build Docker') {
             steps {
-                docker.build registry + "/latest"
+                //docker.build(registry + "/new_image:latest")
             }
         }
         stage('Deploy') {
