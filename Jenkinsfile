@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-      registry = "ggkioka/adneom"
+      registry = "ggkioka"
       registryCredential = 'dockerhub'
     }
     stages {
@@ -15,10 +15,23 @@ pipeline {
             }
         }
         stage('Build Docker') {
-            steps {
-              echo 'Deploying....'
-                //docker.build(registry + "/new_image:latest")
+            agent {
+              label 'docker'
             }
+            steps {
+              unstash 'build-artifact'
+              dir(path: 'asgard-rest') {
+                script {
+                    docker.build(registry + "/asgard-rest:latest")
+                }
+            }
+
+            dir(path: 'asgard-web') {
+              script {
+                  docker.build(registry + "/asgard-web:latest")
+                  }
+            }
+          }
         }
         stage('Deploy') {
             steps {
