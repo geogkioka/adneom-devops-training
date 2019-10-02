@@ -34,9 +34,15 @@ pipeline {
           }
         }
         stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
+           agent {
+           label 'docker'
+         }
+         steps {
+           script {
+             sh "/snap/bin/docker-compose up -d"
+             echo 'Open you browser to http://localhost:5580/'
+           }
+         }
         }
     }
 }
