@@ -12,6 +12,7 @@ pipeline {
               args '-e HOME=/tmp'
               image 'openjdk:11-stretch'
             }
+          }
             steps {
                 sh './gradlew build'
 				        stash(name: 'build-artifact')
