@@ -35,7 +35,7 @@ pipeline {
         }
         stage('Deploy') {
            agent {
-           label 'docker'
+           label 'docker-slave'
          }
          steps {
            script {
