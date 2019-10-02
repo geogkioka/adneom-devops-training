@@ -1,16 +1,25 @@
 pipeline {
-    agent any
-
+    agent none
+    environment {
+      registry = "ggkioka/adneom"
+      registryCredential = 'dockerhub'
+    }
     stages {
         stage('Build') {
+          agent {
+            docker {
+              alwaysPull true
+              args '-e HOME=/tmp'
+              image 'openjdk:11-stretch'
+            }
             steps {
                 sh './gradlew build'
-				stash(name: 'build-artifact')
+				        stash(name: 'build-artifact')
             }
         }
-        stage('Test') {
+        stage('Build Docker') {
             steps {
-                echo 'Testing..'
+                docker.build registry + "/latest"
             }
         }
         stage('Deploy') {
