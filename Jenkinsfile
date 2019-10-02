@@ -7,11 +7,7 @@ pipeline {
     stages {
         stage('Build') {
           agent {
-            docker {
-              alwaysPull true
-              args '-e HOME=/tmp'
-              image 'openjdk:11-stretch'
-            }
+            label 'openjdk-11'
           }
             steps {
                 sh './gradlew build'
