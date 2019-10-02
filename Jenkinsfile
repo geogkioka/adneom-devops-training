@@ -20,6 +20,7 @@ pipeline {
         }
         stage('Build Docker') {
             steps {
+              echo 'Deploying....'
                 //docker.build(registry + "/new_image:latest")
             }
         }
